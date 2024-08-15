@@ -9,13 +9,17 @@ import {PriceConverter} from "./PriceConverter.sol";
 error NotOwner();
 
 contract FundMe {
+    // Type declaration
     using PriceConverter for uint256;
 
-    mapping(address => uint256) public addressToAmountFunded;
-    address[] public funders;
+    // state variables
+    // It maps and tracks how much ether adress has funded which is why made it "private". 
+    // It prevents external contracts or users to modify the data structure 
+    mapping(address => uint256) private addressToAmountFunded;
+    address[] private funders;
 
-    // Could we make this constant?  /* hint: no! We should make it immutable! */
-    address public /* immutable */ i_owner;
+    //  immutable is not stored in storage and can't be 
+    address public immutable i_owner;
     uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
 
     constructor() {
@@ -39,6 +43,20 @@ contract FundMe {
         if (msg.sender != i_owner) revert NotOwner();
         _;
     }
+
+    function withdrawCheaper() public onlyOwner {
+        uint256 fundersLength = funders.length;
+
+        for(uint256 funderIndex = 0; funderIndex < fundersLength; funderIndex++){
+            address funder = funders[funderIndex];
+            addressToAmountFunded[funder] = 0;
+        }
+        funders = new address[](0);
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
+        require(callSuccess, "Call failed");
+    }
+
+
 
     function withdraw() public onlyOwner {
         for (uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {

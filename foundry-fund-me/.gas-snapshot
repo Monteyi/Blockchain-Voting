@@ -1,0 +1,3 @@
+FundMeTest:testFundfailsNotEnoughETH() (gas: 11163)
+FundMeTest:testMinimumDolloarIsFive() (gas: 8322)
+FundMeTest:testOwnerIsMsgSender() (gas: 12926)

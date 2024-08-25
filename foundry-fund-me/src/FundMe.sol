@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Test
+
 pragma solidity ^0.8.19;
 
 
@@ -42,38 +42,6 @@ contract FundMe {
         // require(msg.sender == owner);
         if (msg.sender != i_owner) revert NotOwner();
         _;
-    }
-
-    function withdrawCheaper() public onlyOwner {
-        uint256 fundersLength = funders.length;
-
-        for(uint256 funderIndex = 0; funderIndex < fundersLength; funderIndex++){
-            address funder = funders[funderIndex];
-            addressToAmountFunded[funder] = 0;
-        }
-        funders = new address[](0);
-        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
-        require(callSuccess, "Call failed");
-    }
-
-
-
-    function withdraw() public onlyOwner {
-        for (uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
-            address funder = funders[funderIndex];
-            addressToAmountFunded[funder] = 0;
-        }
-        funders = new address[](0);
-        // // transfer
-        // payable(msg.sender).transfer(address(this).balance);
-
-        // // send
-        // bool sendSuccess = payable(msg.sender).send(address(this).balance);
-        // require(sendSuccess, "Send failed");
-
-        // call
-        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
-        require(callSuccess, "Call failed");
     }
     // Explainer from: https://solidity-by-example.org/fallback/
     // Ether is sent to contract

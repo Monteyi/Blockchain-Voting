@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
-
+// solidity version is 0.8.19 or higher
 pragma solidity ^0.8.19;
-
 
 import {AggregatorV3Interface} from "lib/chainlink-brownie-contracts/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import {PriceConverter} from "./PriceConverter.sol";
@@ -20,7 +19,8 @@ contract FundMe {
 
     //  immutable is not stored in storage and can't be 
     address public immutable i_owner;
-    uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
+    // Minimum 1 dollor has to be send
+    uint256 public constant MINIMUM_USD = 1 * 10 ** 18;
 
     constructor() {
         i_owner = msg.sender;
@@ -43,17 +43,6 @@ contract FundMe {
         if (msg.sender != i_owner) revert NotOwner();
         _;
     }
-    // Explainer from: https://solidity-by-example.org/fallback/
-    // Ether is sent to contract
-    //      is msg.data empty?
-    //          /   \
-    //         yes  no
-    //         /     \
-    //    receive()?  fallback()
-    //     /   \
-    //   yes   no
-    //  /        \
-    //receive()  fallback()
 
     fallback() external payable {
         fund();

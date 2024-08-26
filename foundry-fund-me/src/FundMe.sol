@@ -1,3 +1,7 @@
+// 1. Get funds from users
+// 2. Set a precise number that users only can only fund by in DKK (1 DKK). 
+// We don’t want users to pay less or higher in 1 DKK that would make it more complicated to tally votes. 
+
 // SPDX-License-Identifier: MIT
 // solidity version is 0.8.19 or higher
 pragma solidity ^0.8.19;

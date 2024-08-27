@@ -31,11 +31,13 @@ contract FundMe {
     }
 
     function fund() public payable {
-        require(msg.value.getConversionRate() >= MINIMUM_USD, "You need to spend more ETH!");
-        // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
+        // checks that the specific number you send is correct
+        require(msg.value.getConversionRate() == MINIMUM_USD, "You either spend too much or less ETH!");
+        // updates a mapping that tracks how much Ether each address has contributed to the contract
         addressToAmountFunded[msg.sender] += msg.value;
+        // Records the sender into funders array
         funders.push(msg.sender);
-    }
+    }       
 
     function getVersion() public view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);

@@ -49,7 +49,6 @@ contract FundMe {
     // that way we don't have to check on each function is the owner correct.
     modifier onlyOwner() {
         // Restrict access to functions. If  it isn't the owner, the it will revert back with an error
-        // require(msg.sender == owner);
         if (msg.sender != i_owner) revert NotOwner();
         _;
     }

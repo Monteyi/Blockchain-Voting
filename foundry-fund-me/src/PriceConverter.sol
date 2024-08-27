@@ -13,10 +13,10 @@ library PriceConverter {
         // https://docs.chain.link/data-feeds/price-feeds/addresses
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);
         // It can return different kinds of variables, but we are only interested in price
-        (, int256 answer,,,) = priceFeed.latestRoundData();
+        (, int256 price,,,) = priceFeed.latestRoundData();
         // Had to typecast to uint256 
         // ETH/USD rate in 18 digit 
-        return uint256(answer * 10000000000);
+        return uint256(price * 10000000000);
     }
 
     // 1000000000

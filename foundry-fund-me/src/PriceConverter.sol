@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
+// Got help from programming from: https://docs.chain.link/data-feeds/getting-started
 pragma solidity ^0.8.19;
 
 import {AggregatorV3Interface} from
     "lib/chainlink-brownie-contracts/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-// Why is this a library and not abstract?
-// Why not an interface?
+// We used library because it is executed inline within calling contracts
 library PriceConverter {
     // We could make this public, but then we'd have to deploy it
     function getPrice() internal view returns (uint256) {

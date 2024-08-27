@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Got help from programming from: https://docs.chain.link/data-feeds/getting-started
+// Got help with programming from: https://docs.chain.link/data-feeds/getting-started
 pragma solidity ^0.8.19;
 
 import {AggregatorV3Interface} from
@@ -12,6 +12,7 @@ library PriceConverter {
         // Sepolia ETH / USD Address
         // https://docs.chain.link/data-feeds/price-feeds/addresses
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);
+        // It can return different kinds of variables, but we are only interested in price
         (, int256 answer,,,) = priceFeed.latestRoundData();
         // ETH/USD rate in 18 digit
         return uint256(answer * 10000000000);

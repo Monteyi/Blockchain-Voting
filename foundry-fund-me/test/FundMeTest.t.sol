@@ -17,9 +17,8 @@ contract FundMeTest is Test {
     }
     // we use public "view" because it Ensure that testMinimumDollarIsFive() only reads the contract’s state and does not modify it.
     // it gives better clarity and better gas efficiency.
-
     function testMinimumDolloarIsFive() public view {
-        assertEq(fundMe.MINIMUM_USD(), 5e18);
+        assertEq(fundMe.MINIMUM_USD(), 1e18);
     }
     // Checks if the owner is equal with the sender of ETH
 

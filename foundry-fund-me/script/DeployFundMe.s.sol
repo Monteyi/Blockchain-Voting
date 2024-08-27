@@ -13,7 +13,8 @@ contract DeployFundMe is Script {
         vm.startBroadcast();
         // deploys the new instance FundMe contract
         new FundMe();
-        // stop the transaction after this call. Ensuring that only the intended transactions are included
+        // stop the transaction after this call. 
+        // Ensuring that only the intended transactions are included
         vm.stopBroadcast();
     }
 }

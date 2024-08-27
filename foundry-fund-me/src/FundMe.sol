@@ -32,7 +32,7 @@ contract FundMe {
 
     function fund() public payable {
         // checks that the specific number you send is correct
-        require(msg.value.getConversionRate() == MINIMUM_USD, "You need to more or less in Ether, so it's exactly 1 doller");
+        require(msg.value.getConversionRate() >= MINIMUM_USD, "You need to more or less in Ether, so it's exactly 1 doller");
         // updates a mapping that tracks how much Ether each address has contributed to the contract
         addressToAmountFunded[msg.sender] += msg.value;
         // Records the sender into funders array

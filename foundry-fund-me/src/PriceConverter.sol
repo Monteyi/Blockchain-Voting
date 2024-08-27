@@ -14,7 +14,8 @@ library PriceConverter {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);
         // It can return different kinds of variables, but we are only interested in price
         (, int256 answer,,,) = priceFeed.latestRoundData();
-        // ETH/USD rate in 18 digit
+        // Had to typecast to uint256 
+        // ETH/USD rate in 18 digit 
         return uint256(answer * 10000000000);
     }
 

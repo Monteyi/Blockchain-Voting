@@ -32,19 +32,21 @@ contract FundMe {
 
     function fund() public payable {
         // checks that the specific number you send is correct
-        require(msg.value.getConversionRate() >= MINIMUM_USD, "You need to spend more Ether");
+        require(msg.value.getConversionRate() == MINIMUM_USD, "You need to more or less in Ether, so it's exactly 1 doller");
         // updates a mapping that tracks how much Ether each address has contributed to the contract
         addressToAmountFunded[msg.sender] += msg.value;
         // Records the sender into funders array
         funders.push(msg.sender);
-    }       
-
+    }
+    
+    // I use version function to determine I use the correct contract
     function getVersion() public view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);
         return priceFeed.version();
     }
 
     modifier onlyOwner() {
+        // Restrict access to functions. If  it isn't the owner, the it will revert back with an error
         // require(msg.sender == owner);
         if (msg.sender != i_owner) revert NotOwner();
         _;

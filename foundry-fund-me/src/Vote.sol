@@ -11,11 +11,11 @@ import {PriceConverter} from "./PriceConverter.sol";
 
 error NotOwner();
 
-contract FundMe {
-    // Type declaration
+contract Vote {
+    // Type declaration to get the same type call
     using PriceConverter for uint256;
 
-    // state variables
+    // state variable
     // It maps and tracks how much ether adress has funded which is why made it "private". 
     // It prevents external contracts or users to modify the data structure 
     mapping(address => uint256) private addressToAmountFunded;
@@ -30,7 +30,7 @@ contract FundMe {
         i_owner = msg.sender;
     }
 
-    function fund() public payable {
+    function sendVote() public payable {
         // checks that the specific number you send is correct
         require(msg.value.getConversionRate() >= MINIMUM_USD, "You need to more or less in Ether, so it's exactly 1 doller");
         // updates a mapping that tracks how much Ether each address has contributed to the contract
@@ -54,10 +54,10 @@ contract FundMe {
     }
 
     fallback() external payable {
-        fund();
+        sendVote();
     }
 
     receive() external payable {
-        fund();
+        sendVote();
     }
 }

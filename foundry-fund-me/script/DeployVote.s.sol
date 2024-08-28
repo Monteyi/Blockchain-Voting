@@ -1,18 +1,18 @@
 // SPDX-License-Identifier: MIT
-// How to script is copied from https://book.getfoundry.sh/tutorials/solidity-scripting
+// Inspired by https://book.getfoundry.sh/tutorials/solidity-scripting
 pragma solidity ^0.8.18;
 
 // imports the forge library which provides the utility to run the blockchain
 import {Script} from "forge-std/Script.sol";
 // imports the contract that we want to deploy
-import {FundMe} from "../src/FundMe.sol";
+import {Vote} from "../src/Vote.sol";
 
-contract DeployFundMe is Script {
+contract DeployVote is Script {
     function run() external {
         // starts the transaction
         vm.startBroadcast();
         // deploys the new instance FundMe contract
-        new FundMe();
+        new Vote();
         // stop the transaction after this call. 
         // Ensuring that only the intended transactions are included
         vm.stopBroadcast();

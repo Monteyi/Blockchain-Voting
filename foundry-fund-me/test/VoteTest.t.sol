@@ -5,10 +5,7 @@ pragma solidity ^0.8.19;
 import {Test, console} from "forge-std/Test.sol";
 import {Vote} from "../src/Vote.sol";
 
-// The is Test part indicates that FundMeTest is inheriting from the Test contract.
-// In Solidity, inheritance allows a contract to inherit all the functions, variables, and modifiers from another contract.
-// This means that FundMeTest can use all the functionalities provided by the Test contract without needing to redefine them.
-// These could include functions for setting up test environments, manipulating state, asserting conditions, and more.
+// The "VoteTest is Test" part indicates that VoteTest is inheriting from the Test contract that foundry has.
 contract VoteTest is Test {
     Vote vote;
 
@@ -20,8 +17,8 @@ contract VoteTest is Test {
     function testMinimumDolloarIsFive() public view {
         assertEq(vote.MINIMUM_USD(), 1e18);
     }
-    // Checks if the owner is equal with the sender of ETH
 
+    // Checks if the owner is equal with the sender of ETH
     function testOwnerIsMsgSender() public view {
         console.log(vote.i_owner());
         console.log(msg.sender);
@@ -35,11 +32,4 @@ contract VoteTest is Test {
         vm.expectRevert();
         vote.sendVote{value: 0}(); // send 0 value, which is less than the MINIMUM_USD
     }
-
-    // Checks if we did send enough
-    //function testDidSendEnoughETH() public{
-    //    fundMe.fund{value: 12}();
-    //    uint256 amountFunded = fundMe.addressToAmountFunded(address(this));
-    //    assertEq(amountFunded, 12);
-    //}
 }

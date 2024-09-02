@@ -48,7 +48,7 @@ contract Vote {
     // use modifer because it imbed the code in any function to modify its behaviour.
     // that way we don't have to check on each function is the owner correct.
     modifier onlyOwner() {
-        // Restrict access to functions. If  it isn't the owner, the it will revert back with an error
+        // Restrict access to functions. If it isn't the owner, then it will revert back with an error
         if (msg.sender != i_owner) revert NotOwner();
         _;
     }

@@ -52,11 +52,11 @@ contract Vote {
         if (msg.sender != i_owner) revert NotOwner();
         _;
     }
-
+    // The fallback function is executed if a function doesn’t exist
     fallback() external payable {
         sendVote();
     }
-
+    // if the msg.data is empty, the receive function is triggered
     receive() external payable {
         sendVote();
     }
